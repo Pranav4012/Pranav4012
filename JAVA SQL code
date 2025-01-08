@@ -1,0 +1,47 @@
+package pranav.examples.jdbc.test;
+
+import java.sql.*;
+
+public class TestConnection {
+
+    public static void main(String[] a) {
+
+        try (
+                // Step 1: Connect to the database via a 'Connection' object called 'conn'
+                Connection conn = DriverManager.getConnection(
+                       url;"jdbc:mysql://localhost:3306/employees",
+                                  user :"root",password "Your_password");   // For MySQL only
+                // The format is: "jdbc:mysql://hostname:port/databaseName", "username", "password"
+
+                // Step 2: Construct a 'Statement' object called 'stmt' inside the Connection created
+                Statement stmt = conn.createStatement();
+        ) {
+            // Step 3: Write a SQL query string. Execute the SQL query via the 'Statement'.
+            //  The query result is returned in a 'ResultSet' object called 'rset'.
+            String strSelect = "select * from employees";
+            System.out.println("The SQL statement is: " + strSelect + "\n"); // Echo For debugging
+
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // Step 4: Process the 'ResultSet' by scrolling the cursor forward via next().
+            //  For each row, retrieve the contents of the cells with getXxx(columnName).
+            System.out.println("The records selected are:");
+            int rowCount = 0;
+            // Row-cursor initially positioned before the first row of the 'ResultSet'.
+            // rset.next() inside the whole-loop repeatedly moves the cursor to the next row.
+            // It returns false if no more rows.
+            while(rset.next()) {   // Repeatedly process each row
+                String title = rset.getString("name");  // retrieve a 'String'-cell in the row
+                int age = rset.getInt("age");  // retrieve a 'double'-cell in the row
+                int    id   = rset.getInt("id");       // retrieve a 'int'-cell in the row
+                System.out.println(title + ", " + age + ", " + id);
+                ++rowCount;
+            }
+            rset.close();
+            System.out.println("Total number of records = " + rowCount);
+
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+        }  // Step 5: Close conn and stmt - Done automatically by try-with-resources (JDK 7)
+    }
+}
