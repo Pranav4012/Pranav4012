@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @Pranav Choudhary
-- 👀 I’m interested in ...java, c++, c .
+- 👀 I’m interested in ...java, c++, c , Python .
 - 🌱 I’m currently learning ...c language
 - 📫 How to reach me ...(https://www.linkedin.com/in/pranav-choudhary-721960225) linkedin
 -  Hobbies: highly enthusiastic about the football , batmintion 
